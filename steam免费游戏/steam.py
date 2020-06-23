@@ -3,12 +3,12 @@ from urllib import response
 import requests
 from lxml import etree
 import json
-import tkinter
-from tkinter import ttk
-from tkinter import messagebox
+from fake_useragent import UserAgent
+
 
 url="https://steamdb.info/upcoming/free/"
-headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"}
+#headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"}
+headers = {'User-Agent': UserAgent().random}#采用随机的请求头防止被服务器搬掉
 try:
     html=requests.get(url,headers=headers)
     if html.status_code == 200:
