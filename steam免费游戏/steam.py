@@ -10,7 +10,7 @@ from tkinter import messagebox
 url="https://steamdb.info/upcoming/free/"
 headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363"}
 try:
-    html=requests.get(url,headers=headers,timeout=15)
+    html=requests.get(url,headers=headers)
     if html.status_code == 200:
         dom = etree.HTML(html.text)
         '''寻找第一个table里的信息'''
@@ -41,12 +41,12 @@ try:
 
         '''抓取即将到来的免费游戏'''
         name_f = dom.xpath('//table[2]//a/b/text()')
-        starts_f = dom.xpath('//table[2]//td[3]//text()')
+        starts_f = dom.xpath('//table[2]//td[4]//text()')
         for i in starts_f:
             if i ==' ':
                 starts_f.remove(i)
-        start_f = dom.xpath('//table[2]//td[4]/@title')
-        end_f = dom.xpath('//table[2]//td[5]/@title')
+        start_f = dom.xpath('//table[2]//td[5]/@title')
+        end_f = dom.xpath('//table[2]//td[6]/@title')
         '''处理时间格式'''
         start_f_time = [c.replace('T', '-')[:-9] for c in start_f]
         end_f_time = [c.replace('T', '-')[:-9] for c in end_f]
@@ -91,7 +91,6 @@ try:
             f_start = f_game_data['start_time']
             f_ned = f_game_data['end_time']
             print('名字：'+f_name+'  状态：'+f_starts+'  开始时间：'+f_start+'  结束时间：'+f_ned)
-            response.close()
     else:
         print(html.status_code)
 except:

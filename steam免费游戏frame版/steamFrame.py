@@ -26,12 +26,12 @@ try:
 
         '''抓取即将到来的免费游戏'''
         name_f = dom.xpath('//table[2]//a/b/text()')
-        starts_f = dom.xpath('//table[2]//td[3]//text()')
+        starts_f = dom.xpath('//table[2]//td[4]//text()')
         for i in starts_f:
             if i ==' ':
                 starts_f.remove(i)
-        start_f = dom.xpath('//table[2]//td[4]/@title')
-        end_f = dom.xpath('//table[2]//td[5]/@title')
+        start_f = dom.xpath('//table[2]//td[5]/@title')
+        end_f = dom.xpath('//table[2]//td[6]/@title')
         '''处理时间格式'''
         start_f_time = [c.replace('T', '-')[:-9] for c in start_f]
         end_f_time = [c.replace('T', '-')[:-9] for c in end_f]
@@ -100,6 +100,6 @@ try:
         steam_msg_table2.grid(row=3)
         steamgames.mainloop()
     else:
-        print(html.status_code)
+        messagebox.showinfo("warning", html.status_code)
 except:
     messagebox.showinfo("warning", "warn Internet")
