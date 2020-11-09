@@ -7,9 +7,15 @@ from tkinter import messagebox
 from fake_useragent import UserAgent
 
 url="https://steamdb.info/upcoming/free/"
-headers = {'User-Agent': UserAgent().random}#采用随机的请求头防止被服务器搬掉
+headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36 Edg/86.0.622.63"}#采用随机的请求头防止被服务器搬掉
 try:
-    html=requests.get(url,headers=headers)
+    html=requests.get(url,headers=headers,cookies = {
+        # 将cookies传上去
+        "_ga": "GA1.2.1168844079.1604884537",
+        "__cfduid":"d1a539d348962b45c464bfcc6f04bcaf51604884535",
+        "_gid":"GA1.2.1876493800.1604884537",
+        "cf_clearance":"c0e93ae15126f9d18dbe8270e20e33452db7d86e-1604884535-0-1z5af65ec4zd5e4cd9czeda6ef2-150"
+    })
     if html.status_code == 200:
         dom = etree.HTML(html.text)
         '''寻找第一个table里的信息'''
